@@ -1,0 +1,15 @@
+<!-- property binding using [] syntax on properties and event binding using () syntax on functions with associated component class -->
+<!-- responsible for displaying stars in rating column and handling its associated click event and updating the rating value proerty -->
+
+<div class="crop" 
+[style.width.px]="starWidth"
+[title]='rating'
+(click)='onClick()'>
+<div style="width: 86px">
+    <span class="glyphicon glyphicon-star"></span>
+    <span class="glyphicon glyphicon-star"></span>
+    <span class="glyphicon glyphicon-star"></span>
+    <span class="glyphicon glyphicon-star"></span>
+    <span class="glyphicon glyphicon-star"></span>
+</div>
+</div>

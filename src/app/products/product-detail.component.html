@@ -1,0 +1,13 @@
+<!-- checks if the product is present only then display its detail -->
+<div class='panel panel-primary' *ngIf='product'>
+
+  <div class='panel panel heading'>
+    {{pageTitle+': '+ product.productName}}
+  </div>
+  <div class="panel-footer">
+    <a class="btn btn-default" (click)='OnBack()' style="width:80px">
+      <i class="glyphicon glyphicon-chevron-left"></i> Back
+    </a>
+
+  </div>
+</div>

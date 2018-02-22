@@ -1,0 +1,88 @@
+<div class="panel panel-primary">
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
+
+    <!-- Filter the Products  -->
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-2'>Filter by:</div>
+            <div class='col-md-4'>
+                <input type='text' [(ngModel)]='listFilter' />
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-6'>
+                <h3>Filtered by:{{listFilter}} </h3>
+                <input type='text' [(ngModel)]='name' />
+                <button class="btn btn-primary" (click)='showName()'>pyar ka button</button>
+            </div>
+        </div>
+
+        <!-- <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div> -->
+
+        <div class='table-responsive'>
+            <!-- uses angular built in structural directives starting * included in browser module which is added in main module -->
+            <table class='table' *ngIf='filteredProducts && filteredProducts.length'>
+                <thead>
+                    <tr>
+                        <th>
+                            <button class='btn btn-primary' (click)='toggleImage()'>
+                                {{showImage?'Hide':'Show'}} Image
+                            </button>
+                        </th>
+                        <th>Product</th>
+                        <th>Code</th>
+                        <th>Available</th>
+                        <th>Price</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let product of filteredProducts'>
+                        <td>
+                            <img *ngIf='showImage' [src]='product.imageUrl' [title]='product.productName' [style.width.px]="imageWidth" [style.margin.px]='imageMargin'>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/products',product.productId]">{{product.productName}}</a>
+                        </td>
+                        <td>{{product.productCode| lowercase | convertToSpaces:'-'}}</td>
+                        <td>{{product.releaseDate}}</td>
+                        <!--using pipes to display the data in required format -->
+                        <td>{{product.price|currency: 'GBP':true:'1.2-2'}}</td>
+                        <!--<td>{{product.starRating}}</td> -->
+
+                        <!-- binding the property and event of the nested star component with the parent component  -->
+                        <td>
+                            <!-- using Star Component event binding -->
+                            <app-star [rating]='product.starRating' (ratingClicked)='onRatingClicked($event)'></app-star>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+                <!-- <tr >
+                            <td>
+                                <img *ngIf='showImage'
+                                     [src]='product.imageUrl'
+                                     [title]='product.productName | uppercase'
+                                     [style.width.px]='imageWidth' 
+                                     [style.margin.px]='imageMargin'>
+                            </td>
+                            <td><a [routerLink]="['/product', product.productId]">
+                                {{product.productName}}
+                                </a>
+                            </td>
+                            <td>{{ product.productCode | lowercase }}</td>
+                            <td>{{ product.releaseDate }}</td>
+                            <td>{{ product.price | currency:'USD':true:'1.2-2' }}</td>
+                            <td>
+                                <ai-star [rating]='product.starRating'
+                                        (ratingClicked)='onRatingClicked($event)'>
+                                </ai-star>
+                           </td>
+                        </tr> -->
+            </table>
+        </div>
+    </div>
+</div>
